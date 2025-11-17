@@ -14,12 +14,12 @@ const Body = () => {
 
     const fetchUser = async () => {
         try {
-            const result = await axios.get(BASE_URL + "profile/view", {
+            const result = await axios.get(BASE_URL + "/profile/view", {
                 withCredentials: true
             })
             dispatch(addUser(result.data))
         } catch (err) {
-            if(err.status === 401){
+            if (err.status === 401) {
                 navigate("/login")
             }
             console.error(err)
@@ -33,11 +33,14 @@ const Body = () => {
     }, [])
 
     return (
-        <>
+   <div className="flex flex-col min-h-screen bg-accent-content"> 
             <NavBar />
-            <Outlet />
+            <main className="flex-grow  p-4 md:p-6 lg:px-8"> 
+                <Outlet />
+            </main>
+            
             <Footer />
-        </>
+        </div>
 
     )
 }

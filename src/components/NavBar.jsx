@@ -10,13 +10,20 @@ const NavBar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogout = async () => {
-        await axios.post(BASE_URL + "logout",{}, {
+        await axios.post(BASE_URL + "/logout", {}, {
             withCredentials: true
         })
         dispatch(removeUser())
         navigate("/login")
 
     }
+
+    const handleClickItem = () => {
+        const activeElement = document.activeElement;
+        if (activeElement instanceof HTMLElement) {
+            activeElement.blur();
+        }
+    };
     return (
         <div className="navbar bg-base-300 shadow-sm">
             <div className="flex-1">
@@ -35,15 +42,17 @@ const NavBar = () => {
                         </div>
                         <ul
                             tabIndex="-1"
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li>
-                                <Link to={"/profile"} className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </Link>
-                            </li>
-                            <li><a>Settings</a></li>
-                            <li><a onClick={handleLogout}>Logout</a></li>
+                            className="menu menu-sm dropdown-content bg-base-300 rounded-box z-30 mt-3 w-52 p-2 shadow">
+                            <li onClick={handleClickItem}><Link to={"/profile"} >Profile</Link></li>
+                            <li onClick={handleClickItem}><Link to={"/connections"}>Accepted Connections</Link></li>
+                            <li onClick={handleClickItem}><Link to={"/request"}>Request Received</Link></li>
+                            <li onClick={handleClickItem}><Link to={"/request/sent"}>Pending Request</Link></li>
+                            <li><a
+                                onClick={() => {
+                                    handleLogout();
+                                    handleClickItem();
+                                }}
+                            >Logout</a></li>
                         </ul>
                     </div>
                 </div>
