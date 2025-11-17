@@ -24,6 +24,11 @@ const Feed = () => {
   }, []);
 
 
+  if (!feed) return;
+
+  if (feed.length <= 0)
+    return <h1 className="flex justify-center my-10 items-center">No new users founds!</h1>;
+
   if (isLoading) {
     return (
       <div className="flex justify-center my-20">
@@ -32,11 +37,6 @@ const Feed = () => {
       </div>
     );
   }
-
-  if (!feed) return;
-
-  if (feed.length <= 0)
-    return <h1 className="flex justify-center my-10 items-center">No new users founds!</h1>;
 
   return (
     feed && (
